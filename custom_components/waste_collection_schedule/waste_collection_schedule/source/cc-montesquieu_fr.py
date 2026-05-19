@@ -113,7 +113,7 @@ class Source:
             )
 
     def get_parsed_source(self) -> BeautifulSoup:
-        response = requests.get(DATA_URL)
+        response = requests.get(DATA_URL, verify=False)
         response.raise_for_status()
         return BeautifulSoup(response.text, "html.parser")
 
@@ -198,7 +198,7 @@ class Source:
         if not best_url:
             return {}
 
-        response = requests.get(best_url, timeout=10)
+        response = requests.get(best_url, timeout=10,verify=False)
         response.raise_for_status()
 
         pdf_reader = PdfReader(BytesIO(response.content))
